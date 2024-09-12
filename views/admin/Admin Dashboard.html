@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/public/style/admin.css">
+</head>
+<body>
+  <div class="admin-dashboard-container">
+    <header class="admin-navbar">
+        <div class="admin-logo">User Management</div>
+        <div class="admin-profile">
+          <img src="path/to/user-picture.jpg" alt="Admin Profile Picture" class="admin-user-picture">
+          <ul class="nav-menu">
+              <li><a href="#" id="viewAdminProfile">Admin Profile</a></li>
+              <!-- Add other nav items here -->
+            </ul>
+          <button class="admin-logout-button">Logout</button>
+        </div>
+      </header>
+
+    <div class="admin-content">
+      <div class="overview-cards">
+        <div class="card">
+          <div class="card-title">User Activity Stats</div>
+          <div class="card-content">
+            <p><strong>Active Users:</strong> 150</p>
+            <p><strong>Recent Signups:</strong> 25</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Study Session Data</div>
+          <div class="card-content">
+            <p><strong>Sessions Created:</strong> 300</p>
+            <p><strong>Sessions Completed:</strong> 250</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-links">
+        <a href="manage-users.html" class="action-button">User Management</a>
+        <a href="system-settings.html" class="action-button">System Settings</a>
+      </div>
+    </div>
+  </div>
+
+      <!-- Admin Profile Pop-up -->
+      <div class="popup-overlay" id="adminProfilePopup">
+        <div class="popup-content">
+          <span class="close-btn" id="closeAdminProfile">&times;</span>
+          <h2>Admin Profile</h2>
+          <div class="admin-profile-details">
+            <p><strong>Name:</strong> <span id="adminName">Admin Name</span></p>
+            <p><strong>Email:</strong> <span id="adminEmail">admin@example.com</span></p>
+            <p><strong>Status:</strong> <span id="adminStatus">Administrator</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script>
+     const viewAdminProfile = document.getElementById('viewAdminProfile');
+      const adminProfilePopup = document.getElementById('adminProfilePopup');
+      const closeAdminProfile = document.getElementById('closeAdminProfile');
+
+
+      // Open admin profile pop-up
+      viewAdminProfile.addEventListener('click', function() {
+        adminProfilePopup.style.display = 'flex';
+      });
+
+      // Close admin profile pop-up
+      closeAdminProfile.addEventListener('click', function() {
+        adminProfilePopup.style.display = 'none';
+      });
+  </script>
+</body>
+</html>

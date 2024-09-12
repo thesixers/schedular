@@ -1,0 +1,76 @@
+    
+    <div class="main-enf">
+      <form id="enforceSetting" class="enforcement-settings-container">
+        <div class="close"><span class="material-symbols-outlined">
+          close
+          </span></div>
+        <div class="enforcement-features">
+          <h2 class="section-title">Enforcement Setting</h2>
+      
+          <div class="feature-item">
+            <label for="distraction-control" class="feature-label">Distraction Control</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="distraction-control" name="distractionControl">
+              <label for="distraction-control" class="toggle-label"></label>
+            </div>
+            <p class="feature-description">Block specific websites or apps during study sessions.</p>
+          </div>
+      
+          <!-- <div class="feature-item">
+            <label for="notification-preferences" class="feature-label">Notification Preferences</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="notification-preferences" name="notification-preferences">
+              <label for="notification-preferences" class="toggle-label"></label>
+            </div>
+            <p class="feature-description">Set up reminders and alerts for upcoming study sessions, break times, and task completion.</p>
+          </div> -->
+      
+          <div class="feature-item">
+            <label for="parental-alerts" class="feature-label">Parental/Teacher Alerts (Optional)</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="parental-alerts" name="parentalAlerts">
+              <label for="parental-alerts" class="toggle-label"></label>
+            </div>
+            <p class="feature-description">Notify parents or teachers if sessions are missed or tasks are incomplete.</p>
+          </div>
+        </div>
+      
+        <button class="save-settings-button">Save Settings</button>
+      </form>
+    </div>
+      
+
+      <script>
+        const form = document.getElementById('enforceSetting');
+        document.querySelector('.close').addEventListener('click', (e)=>{
+          document.querySelector('.main-enf').style.display = 'none';
+        });
+
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          // var formData = new FormData(this);
+          var distractionControl = form.distractionControl.value;
+          var parentalAlerts = form.parentalAlerts.value;
+          var userId = '<%= details.user._id %>'
+
+          try{
+            let res = await fetch('/user/enforcementSetting',{
+              method: 'POST',
+              body: JSON.stringify({distractionControl, parentalAlerts, userId}),
+              headers: {'Content-Type' : 'application/json'},
+            })
+
+            if(!res.ok){
+              console.error('There was a network error');
+            }
+
+            let data = await res.json();
+
+            console.log(data);
+
+          }
+          catch(err){
+            console.error(err.message);
+          }
+        })
+      </script>

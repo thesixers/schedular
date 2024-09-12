@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+<body>
+  <!-- Navbar -->
+  <%- include('./partials/nav.ejs') %>
+
+  <%- include('./partials/Enforce.ejs') %>
+
+  <%- include('./partials/Notification.ejs') %>
+
+  <div class="schedule-creation-container">
+    <h2 class="form-title" title="this is it">Create New Schedule</h2>
+    <form id="scheduleForm">
+      <div class="input-group">
+        <label for="userId">UserID:</label>
+        <input type="text" id="userId" value="<%= details.user._id %>" name="userId" required readonly>
+      </div>
+
+      <div class="input-group">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+      </div>
+
+      <div class="input-group">
+        <label for="topic">Topic/Chapter:</label>
+        <input type="text" id="topic" name="topic" required>
+      </div>
+
+      <div class="input-group">
+        <label for="datetime">Date:</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+
+      <div class="input-group">
+        <label for="datetime">Time:</label>
+        <input type="time" id="time" name="time" required>
+      </div>
+
+      <div class="input-group">
+        <label for="datetime">Duration:</label>
+        <input type="number" id="duration" placeholder="enter time in minutes" name="duration" required>
+      </div>
+
+      <button type="submit" class="form-button" title="this is a btn">Save Schedule</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('scheduleForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      let formData = new FormData(this);
+
+      try {
+        let res = await fetch('/user/create-shedule', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        let data = await res.json();
+        if(data) prompt('schedule has been created!!!')
+        location.reload();
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle errors
+      }
+    });
+  </script>
+  <script src="/script/s&n.js"></script>
+</body>
+</html>

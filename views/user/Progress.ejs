@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+<body>
+  <!-- Navbar -->
+  <%- include('./partials/nav.ejs') %>
+
+    <div class="progress-tracking-container">
+        <div class="graphical-analytics">
+          <h2 class="section-title">Graphical Analytics</h2>
+          <div class="section progress-overview">
+            <h2 class="section-title">Progress Overview</h2>
+          
+            <% 
+            // completed
+              let totalSessions = details.s.length;
+              let completedSessions = details.s.filter(s => s.status === 'completed').length;
+              let upPercent = totalSessions > 0 ? (completedSessions / totalSessions) * 100 : 0; 
+        
+              // Abandoned
+              let abandonedSessions = details.s.filter(s => s.status === 'abandoned').length;
+              let adPercent = totalSessions > 0 ? (abandonedSessions / totalSessions) * 100 : 0;
+              
+              // missed
+              let missedSessions = details.s.filter(s => s.status === 'missed').length;
+              let msPercent = totalSessions > 0 ? (missedSessions / totalSessions) * 100 : 0;
+            %>
+          
+            <div class="progress-graph">
+              <div class="progress-bar">
+                <div class="progress-completed" style="width: <%= upPercent %>%;"></div>
+              </div>
+              <p class="progress-text"><%= upPercent.toFixed(3) %>% Completed</p>
+            </div>
+        
+            <div class="progress-graph">
+              <div class="progress-bar">
+                <div class="progress-completed" style="width: <%= adPercent %>%;"></div>
+              </div>
+              <p class="progress-text"><%= adPercent.toFixed(3) %>% Abandoned</p>
+            </div>
+        
+            <div class="progress-graph">
+              <div class="progress-bar">
+                <div class="progress-completed" style="width: <%= msPercent %>%;"></div>
+              </div>
+              <p class="progress-text"><%= msPercent.toFixed(3) %>% Missed</p>
+            </div>
+          </div>
+        
+        </div>
+        <div class="detailed-logs">
+          <h2 class="section-title">Detailed Logs</h2>
+          <ul class="session-history">
+            <% if(details.s) {%>
+              <% let sessions = details.s %>
+              <% sessions.forEach(s => { %>
+                <li class="session-item">
+                  <div class="session-details">
+                    <span class="session-subject"> <%= s.subject %> </span>
+                    <span class="session-topic"> <%= s.topic %> </span>
+                    <span class="session-time"> <%= s.duration %> </span>
+                    <span class="session-status completed"> <%= s.status %> </span>
+                  </div>
+                </li>
+             <% }); %>
+            <% } else{%>
+              <li class="session-item">
+                <div class="session-details">
+                  No Active Schedules
+                </div>
+              </li>
+            <% } %> 
+          </ul>
+          <!-- Optional Export Button -->
+          <button class="export-button">Export Data</button>
+        </div>
+      </div>
+
+
+      <%- include('./partials/Enforce.ejs') %>
+
+    <%- include('./partials/Notification.ejs') %>
+
+    <script src="/script/s&n.js"></script>
+    
+</body>
+</html>

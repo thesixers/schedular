@@ -1,0 +1,34 @@
+
+    <div class="notification-center-container">
+        <div class="notification-view">
+          <h2 class="section-title">Notification Center</h2>
+          <ul class="notification-list">
+            <!-- Example Notification Item -->
+             <% if(details.n || details.n.length > 0) {%>
+              <% let notifications = details.n.reverse() %>
+              <% notifications.forEach(n => { %>
+                <li class="notification-item unread">
+                  <div class="notification-content">
+                    <h3 class="notification-title"><%= n.type %></h3>
+                    <p class="notification-message"><%= n.message %></p>
+                    <!-- <span class="notification-time">Sent: 3 hours ago</span> -->
+                    <span class="notification-time"><%= n.createdAt %></span>
+                  </div>
+                  <!-- <div class="notification-actions">
+                    <button class="mark-as-read-button">Mark as Read</button>
+                    <button class="delete-notification-button">Delete</button>
+                  </div> -->
+                </li>
+             <% }); %>
+
+            <% }else{ %>
+
+              <li class="notification-item unread">
+                <div>No Notification</div>
+              </li>
+
+            <% } %>
+            
+          </ul>
+        </div>
+      </div>

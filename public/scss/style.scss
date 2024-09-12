@@ -1,0 +1,1006 @@
+$background-color: #FFFFFF;    // White background
+$milkish-white: #FAFAFA;       // Milkish white for pop-ups or semi-hidden elements
+$crimson: #DC143C;             // Crimson for buttons, borders, and important elements
+$text-color: #333333;          // Dark gray for text
+$input-border-color: #CCCCCC;  // Light gray for input borders
+$input-focus-border: #DC143C;  // Crimson border for focused input fields
+$border-color: #CCCCCC; 
+$navbar-height: 60px;
+$navbar-background: $milkish-white;
+$navbar-border-color: #E0E0E0;
+$toggle-off-color: #CCCCCC;    // Light gray for toggle off state
+$toggle-on-color: $crimson;    // Crimson for toggle on state
+$unread-notification-bg: #FFF0F0; // Light red for unread notifications background
+$cta-button-padding: 12px 20px;
+$cta-button-font-size: 16px;
+$cta-button-border-radius: 4px;
+
+
+// Global Styles
+body {
+  background-color: $background-color;
+  font-family: Arial, sans-serif;
+  color: $text-color;
+  height: 100vh;
+}
+
+// Form Styles
+.form-container {
+  background-color: $milkish-white;
+  border: 1px solid $input-border-color;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: $crimson;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: $text-color;
+  }
+
+  input{
+    width: 370px !important;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $input-border-color;
+    border-radius: 4px;
+    font-size: 16px;
+
+    &:focus {
+      border-color: $input-focus-border;
+      outline: none;
+    }
+  }
+
+  &.enforcement-settings {
+    display: flex;
+    align-items: center;
+
+    input[type="checkbox"] {
+      margin-left: 10px;
+      transform: scale(1.2);
+    }
+  }
+}
+
+.form-button {
+  background-color: $crimson;
+  color: $background-color;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($crimson, 10%);
+  }
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 15px;
+
+  a {
+    color: $crimson;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Dashboard Styles
+.navbar {
+  background-color: $navbar-background;
+  height: $navbar-height;
+  border-bottom: 1px solid $navbar-border-color;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 5;
+
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .navbar-left {
+    .navbar-brand {
+      font-size: 24px;
+      font-weight: bold;
+      color: $crimson;
+      text-decoration: none;
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+
+    div{
+      cursor: pointer;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+
+      .dropdown-button {
+        background-color: $crimson;
+        color: $background-color;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($crimson, 10%);
+        }
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: $milkish-white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 4px;
+
+        a {
+          color: $text-color;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+
+          &:hover {
+            background-color: $crimson;
+            color: $background-color;
+          }
+        }
+      }
+
+      &:hover .dropdown-content {
+        display: block;
+      }
+    }
+
+    .navbar-link {
+      margin-right: 20px;
+      font-size: 16px;
+      color: $text-color;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $crimson;
+      }
+    }
+
+    .user-picture {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid $crimson;
+      margin-right: 20px;
+    }
+
+    .logout-button {
+      background-color: $crimson;
+      color: $background-color;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($crimson, 10%);
+      }
+    }
+  }
+}
+  
+
+.dashboard-container {
+  background-color: $milkish-white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .section {
+    margin-bottom: 30px;
+
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: $crimson;
+      margin-bottom: 15px;
+    }
+  }
+
+  .upcoming-sessions {
+    .session-list {
+      list-style-type: none;
+      padding: 0;
+
+      .session-item {
+        background-color: $background-color;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .session-details {
+          .session-subject,
+          .session-topic,
+          .session-time {
+            display: block;
+            color: $text-color;
+            font-size: 16px;
+          }
+
+          .session-subject {
+            font-weight: bold;
+            color: $crimson;
+          }
+        }
+      }
+    }
+  }
+
+  
+
+  .quick-actions {
+    .create-schedule-button {
+      background-color: $crimson;
+      color: $background-color;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 16px;
+      text-align: center;
+      display: block;
+      width: 200px;
+      margin: 0 auto;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($crimson, 10%);
+      }
+    }
+  }
+}
+
+.progress-overview {
+  background-color: $milkish-white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+
+  .progress-graph {
+    .progress-bar {
+      background-color: $border-color;
+      border-radius: 4px;
+      height: 30px;
+      width: 100%;
+      position: relative;
+
+      .progress-completed {
+        background-color: $crimson;
+        height: 100%;
+        border-radius: 4px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-in-out;
+      }
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 16px;
+      color: $text-color;
+    }
+  }
+}
+
+
+// Schedule Creation Page Styles
+.schedule-creation-container {
+  background-color: $milkish-white;
+  border: 1px solid $input-border-color;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-form {
+  .input-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: $text-color;
+    }
+
+    input,
+    select,
+    .datetime-picker {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid $input-border-color;
+      border-radius: 4px;
+      font-size: 16px;
+
+      &:focus {
+        border-color: $input-focus-border;
+        outline: none;
+      }
+    }
+  }
+
+  .repetition-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .form-button {
+    background-color: $crimson;
+    color: $background-color;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($crimson, 10%);
+    }
+  }
+}
+
+// Progress Tracking Page Styles
+.progress-tracking-container {
+  background-color: $milkish-white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: $crimson;
+    margin-bottom: 15px;
+  }
+
+  .charts {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+
+    .chart {
+      background-color: $background-color;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid $border-color;
+      width: 45%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .detailed-logs {
+    height: 300px;
+    overflow: scroll;
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
+
+    .session-history {
+      list-style-type: none;
+      padding: 0;
+
+      .session-item {
+        background-color: $background-color;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .session-details {
+          .session-subject,
+          .session-topic,
+          .session-time {
+            display: block;
+            color: $text-color;
+            font-size: 16px;
+          }
+
+          .session-subject {
+            font-weight: bold;
+            color: $crimson;
+          }
+
+          .session-status {
+            font-weight: bold;
+            text-transform: uppercase;
+
+            &.completed {
+              color: green;
+            }
+
+            &.missed {
+              color: red;
+            }
+          }
+        }
+      }
+    }
+
+    .export-button {
+      background-color: $crimson;
+      color: $background-color;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($crimson, 10%);
+      }
+    }
+  }
+}
+
+// Enforcement Settings Page Styles
+.main-enf{
+  background-color: #cccccc86;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  display: none;
+}
+.enforcement-settings-container {
+  background-color: $milkish-white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 50px auto;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .close{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: $crimson;
+    top: 0;
+    right: 10px;
+    color: $unread-notification-bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: $crimson;
+    margin-bottom: 20px;
+  }
+
+  .enforcement-features {
+    .feature-item {
+      margin-bottom: 20px;
+
+      .feature-label {
+        font-size: 18px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .feature-description {
+        font-size: 14px;
+        color: $text-color;
+        margin-top: 5px;
+      }
+
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+
+        input[type="checkbox"] {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .toggle-label {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: $toggle-off-color;
+          border-radius: 24px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:before {
+            content: "";
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: $background-color;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+          }
+        }
+
+        input:checked + .toggle-label {
+          background-color: $toggle-on-color;
+
+          &:before {
+            transform: translateX(26px);
+          }
+        }
+      }
+    }
+  }
+
+  .save-settings-button {
+    background-color: $crimson;
+    color: $background-color;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($crimson, 10%);
+    }
+  }
+}
+
+// Notification Center Styles
+.notification-center-container {
+  background-color: $milkish-white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 10px;
+  right: 1px;
+  overflow: scroll;
+  display: none;
+  height: 300px;
+
+  .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: $crimson;
+    margin-bottom: 20px;
+  }
+
+  .notification-view {
+    .notification-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      // overflow: scroll;
+
+      .notification-item {
+        background-color: $background-color;
+        border: 1px solid $input-border-color;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s ease;
+
+        &.unread {
+          background-color: $unread-notification-bg;
+        }
+
+        .notification-content {
+          flex: 1;
+
+          .notification-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+            margin-bottom: 5px;
+          }
+
+          .notification-message {
+            font-size: 14px;
+            margin: 0;
+            margin-bottom: 5px;
+          }
+
+          .notification-time {
+            font-size: 12px;
+            color: $text-color;
+            opacity: 0.7;
+          }
+        }
+
+        .notification-actions {
+          display: flex;
+          gap: 10px;
+
+          .mark-as-read-button,
+          .delete-notification-button {
+            background-color: $crimson;
+            color: $background-color;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+              background-color: darken($crimson, 10%);
+            }
+          }
+
+          .delete-notification-button {
+            background-color: darken($crimson, 15%);
+
+            &:hover {
+              background-color: darken($crimson, 25%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.notification-center-container::-webkit-scrollbar{
+  display: none;
+}
+
+// Error Page Styles
+.error-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: $milkish-white;
+  text-align: center;
+  padding: 20px;
+
+  .error-content {
+    background-color: $background-color;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+
+    .error-title {
+      font-size: 72px;
+      font-weight: bold;
+      color: $crimson;
+      margin-bottom: 20px;
+    }
+
+    .error-message {
+      font-size: 18px;
+      color: $text-color;
+      margin-bottom: 30px;
+    }
+
+    .return-home-button {
+      display: inline-block;
+      background-color: $crimson;
+      color: $background-color;
+      padding: 12px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 16px;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($crimson, 10%);
+      }
+    }
+
+    .search-bar-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+
+      .search-bar {
+        padding: 10px;
+        border: 1px solid $text-color;
+        border-radius: 4px;
+        width: 70%;
+        font-size: 16px;
+      }
+
+      .search-button {
+        background-color: $crimson;
+        color: $background-color;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($crimson, 10%);
+        }
+      }
+    }
+  }
+}
+
+// Home Page Styles
+.home-page-container {
+  font-family: Arial, sans-serif;
+
+  .home-header {
+    background-color: $milkish-white;
+    text-align: center;
+    padding: 40px;
+    border-bottom: 1px solid $crimson;
+
+    .welcome-text {
+      font-size: 36px;
+      font-weight: bold;
+      color: $crimson;
+      margin-bottom: 20px;
+    }
+
+    .introduction {
+      font-size: 18px;
+      color: $text-color;
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-buttons {
+      .cta-button {
+        display: inline-block;
+        background-color: $crimson;
+        color: $background-color;
+        padding: $cta-button-padding;
+        border-radius: $cta-button-border-radius;
+        text-decoration: none;
+        font-size: $cta-button-font-size;
+        margin: 0 10px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($crimson, 10%);
+        }
+      }
+
+      .get-started {
+        background-color: $crimson;
+      }
+
+      .learn-more {
+        background-color: darken($crimson, 10%);
+      }
+    }
+  }
+
+  .features {
+    padding: 40px 20px;
+    background-color: $milkish-white;
+    text-align: center;
+
+    .section-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: $crimson;
+      margin-bottom: 30px;
+    }
+
+    .feature-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      .feature-item {
+        margin-bottom: 20px;
+
+        h3 {
+          font-size: 20px;
+          color: $crimson;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 16px;
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  .visuals {
+    padding: 40px 20px;
+    text-align: center;
+
+    .section-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: $crimson;
+      margin-bottom: 30px;
+    }
+
+    .media-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+
+      .visual {
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  .testimonials {
+    background-color: $milkish-white;
+    padding: 40px 20px;
+    text-align: center;
+
+    .section-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: $crimson;
+      margin-bottom: 30px;
+    }
+
+    .testimonial-container {
+      max-width: 800px;
+      margin: 0 auto;
+
+      .testimonial {
+        background-color: $background-color;
+        border: 1px solid $crimson;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: $text-color;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        cite {
+          display: block;
+          margin-top: 10px;
+          font-weight: bold;
+          color: $crimson;
+        }
+      }
+    }
+  }
+}
+
+// countdown timer
+.countdown-wrapper{
+  background-color: rgba(34, 34, 34, 0.836);
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  display: none;
+
+    .countdown-timer {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      background-color: crimson;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 20px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .input-wrapper{
+      position: absolute;
+      left: 10px;
+      top: 20px;
+
+      label{
+        width: 100px;
+        height: 30px;
+        border: 3px dotted $crimson;
+        padding: 10px;
+        color: $crimson;
+      }
+      input{
+        display: none;
+      }
+    }
+
+    #pdf-render {
+      border: 1px solid #000;
+      width: 100%;
+      height: auto;
+    }
+}
+
+

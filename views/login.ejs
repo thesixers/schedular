@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+   <!-- Login Form -->
+<div class="form-container">
+    <h2 class="form-title">Login</h2>
+    <div class="err-massage"></div>
+    <form>
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="form-button">Login</button>
+      <div class="form-footer">
+        <a href="#">Forgot Password?</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let i = 0;
+    let form = document.querySelector('form');
+    let errMessage = document.querySelector('.err-massage');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault()
+        let formData = new FormData(this);
+
+        try{
+
+            let res = await fetch('/auth/login', {
+                method: 'POST',
+                body: formData
+            });
+
+            let data = await res.json();
+
+            if(data.E){
+              errMessage.innerHTML = '';
+              let err = data.E.email.trim() !== '' ? data.E.email.trim() : data.E.password.trim();
+              errMessage.style.color = 'Red';
+                setInterval(()=>{
+                  if(i < err.length){
+                    errMessage.innerHTML += err[i];
+                    i++
+                  }else{
+                    clearInterval()
+                  }
+
+                },30);
+
+            }
+
+            if(data.M){
+              errMessage.innerHTML = '';
+              errMessage.style.color = 'green';
+              let M = data.M.trim();
+              setInterval(()=>{
+                if(i < M.length){
+                  errMessage.innerHTML += M[i];
+                i++ 
+                }else{
+                  clearInterval()
+                  setTimeout(()=>{
+                    location.assign('/user');
+                  }, 2000)
+                }
+              },40)
+            };
+
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+  </script>
+  
+</body>
+</html>

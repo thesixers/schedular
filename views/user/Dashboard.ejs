@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <!-- Navbar -->
+  <%- include('./partials/nav.ejs') %>
+
+  <div class="dashboard-container">
+    <div class="section upcoming-sessions">
+      <h2 class="section-title">Upcoming Study Sessions</h2>
+      <ul class="session-list">
+        <% if(details.s && details.s.length > 0) { %>
+        <% let upcoming = details.s.filter(s => s.status === 'upcoming') %>
+
+        <% if(upcoming.length > 0) { %>
+
+          <% upcoming.forEach(u => { %>
+            <li class="session-item">
+              <div class="session-details">
+                <span class="session-subject">Subject: <%= u.subject %></span>
+                <span class="session-topic">Topic: <%= u.topic %></span>
+                <span class="session-time">Time: <%= u.time %></span>
+                <span class="session-time">End Time: <%= u.duration %></span>
+                <span class="session-time">Date: <%= u.date %></span>
+              </div>
+            </li>
+         <% }); %>
+
+        <% } else {%>  
+          <li class="session-item">
+            <div class="session-details">
+              No Active Schedules
+            </div>
+          </li>
+        <% } %>  
+        
+        <% } else{ %>
+        <li class="session-item">
+          <div class="session-details">
+            No Active Schedules
+          </div>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div> 
+
+  
+  <div class="countdown-wrapper">
+    <div id="countdown-timer" class="countdown-timer">
+      <span class="hour"></span>:<span class="min"></span>:<span class="secs"></span>
+      <div class="time"></div>
+    </div>
+    <div class="input-wrapper">
+      <label for="file-input">Add a pdf to read</label>
+      <input type="file" id="file-input" name="file-input" accept="application/pdf">
+    </div>
+  <canvas id="pdf-render"></canvas>
+  </div>
+
+  <%- include('./partials/Enforce.ejs') %>
+  <%- include('./partials/Notification.ejs') %>
+
+  <div class="sess" data-session="<%= JSON.stringify(details.s) %>"></div>
+
+  <script src="/script/s&n.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+  <script src="/script/pdf-viewer.js"></script>
+
+  <script src="/script/timerfunction.js"></script>
+  
+</body>
+
+</html>

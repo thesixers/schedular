@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .timer-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: blue; */
+            margin: -8px;
+            padding: 0;
+            height: 100vh;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .timer-wrapper .timer-main{
+            background-color: #DC143C;
+            height: 140px;
+            width: 140px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-wrapper">
+        <div class="timer-main"><div class="time">
+            <span class="hour"></span><span class="min"></span><span class="secs"></span>
+        </div></div>
+        <button onclick="pause()">Pause</button>
+    </div>
+    
+
+    <script>
+    const hour = document.querySelector('.hour');
+    const min = document.querySelector('.min');
+    const secs = document.querySelector('.secs');
+    const time = document.querySelector('.time');
+
+    // Load values from localStorage if they exist, otherwise initialize them
+    let mCount = localStorage.getItem('mCount') ? parseInt(localStorage.getItem('mCount')) : 0;
+    let sCount = localStorage.getItem('sCount') ? parseInt(localStorage.getItem('sCount')) : 0;
+    let isPaused = localStorage.getItem('isPaused') === 'true' ? true : false;
+    let returnTime = localStorage.getItem('returnTime') ? parseInt(localStorage.getItem('returnTime')) : 60;
+    let isAbandoned = localStorage.getItem('isAbandoned') === 'true' ? true : false;
+    let duration = 1;
+
+    // Initialize the timer display
+    hour.innerHTML = 0;
+    min.innerHTML = `${mCount}m`;
+    secs.innerHTML = `${sCount}s`;
+
+    const saveToLocalStorage = () => {
+      localStorage.setItem('mCount', mCount);
+      localStorage.setItem('sCount', sCount);
+      localStorage.setItem('isPaused', isPaused);
+      localStorage.setItem('returnTime', returnTime);
+      localStorage.setItem('isAbandoned', isAbandoned);
+    };
+
+    const resetLocalStorage = () => {
+    localStorage.removeItem('mCount');
+    localStorage.removeItem('sCount');
+    localStorage.removeItem('isPaused');
+    localStorage.removeItem('returnTime');
+    localStorage.removeItem('isAbandoned');
+  };
+
+    const interval = setInterval(() => {
+      if (!isPaused && !isAbandoned) {
+        sCount++;
+
+        if (sCount === 60) {
+          sCount = 0;
+          mCount += 1;
+        }
+
+        if (mCount === duration) {
+          isPaused = true;
+          time.style.fontSize = '20px';
+          time.innerHTML = 'Task completed';
+        }
+
+        // Update the timer display
+        hour.innerHTML = 0;
+        min.innerHTML = `${mCount}m`;
+        secs.innerHTML = `${sCount}s`;
+        saveToLocalStorage();
+      }
+
+      if (isAbandoned){
+        clearInterval(interval);
+        mCount = 0;
+        sCount = 0;
+        isPaused = false;
+        returnTime = 60;
+        isAbandoned = false;
+        saveToLocalStorage();
+      };
+    }, 1000);
+
+    function pause() {
+      isPaused = !isPaused;
+      saveToLocalStorage();
+    }
+
+    document.addEventListener("visibilitychange", function() {
+      if (document.visibilityState === "hidden") {
+        isPaused = true;
+        const returnInterval = setInterval(() => {
+          returnTime--;
+          if (returnTime === 0) {
+            clearInterval(returnInterval);
+            hour.innerHTML = 0;
+            min.innerHTML = `${mCount}m`;
+            secs.innerHTML = `${sCount}s`;
+            isAbandoned = true;
+            saveToLocalStorage();
+          }
+        }, 1000);
+      }
+
+      if (document.visibilityState === "visible") {
+        if (!isAbandoned) {
+          isPaused = false;
+          saveToLocalStorage();
+        }
+      } 
+    });
+    </script>
+</body>
+</html>
