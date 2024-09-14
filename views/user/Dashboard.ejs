@@ -5,6 +5,10 @@
   <!-- Navbar -->
   <%- include('./partials/nav.ejs') %>
 
+  <% let { user } = details %>
+  
+  <h2 class="welcome-message">Hello <%= user.name.split(' ')[0] %>!!</h2>
+
   <div class="dashboard-container">
     <div class="section upcoming-sessions">
       <h2 class="section-title">Upcoming Study Sessions</h2>

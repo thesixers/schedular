@@ -4,7 +4,7 @@ import morgan from "morgan";
 import fileuploader from 'express-fileupload';
 import cookieParser from 'cookie-parser';
 import authRoutes from './router/authRoutes.js';
-import otherRoutes from './router/otherRoutes.js'
+import otherRoutes from './router/otherRoutes.js';
 import env from "dotenv";
 import { loop_Session } from './middleware/enforcer.js';
 

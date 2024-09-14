@@ -54,7 +54,8 @@
                     errMessage.innerHTML += err[i];
                     i++
                   }else{
-                    clearInterval()
+                    clearInterval();
+                    // i = 0;
                   }
 
                 },30);
@@ -70,7 +71,8 @@
                   errMessage.innerHTML += M[i];
                 i++ 
                 }else{
-                  clearInterval()
+                  clearInterval();
+                  // i = 0;
                   setTimeout(()=>{
                     location.assign('/user');
                   }, 2000)

@@ -45,9 +45,6 @@ export const checkToken = (req,res,next) =>{
             var n = await notification.find({userId: id});
             var e = await Enforcement.findOne({userId: id});
 
-            console.log(e);
-
-
             res.locals.details = {user,s,n,e}
             next(); 
         }); 

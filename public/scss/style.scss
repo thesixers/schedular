@@ -114,6 +114,15 @@ body {
 }
 
 // Dashboard Styles
+
+.welcome-message{
+  font-style: normal;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+  color: $crimson;
+  font-size: 35px;
+}
+
 .navbar {
   background-color: $navbar-background;
   height: $navbar-height;
@@ -128,33 +137,41 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    align-items: center;
   }
 
-  .navbar-left {
-    .navbar-brand {
-      font-size: 24px;
-      font-weight: bold;
-      color: $crimson;
-      text-decoration: none;
-    }
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: $crimson;
+    text-decoration: none;
   }
 
   .navbar-right {
     display: flex;
     align-items: center;
+    transition: all 0.3s ease;
+    gap: 10px;
 
-    div{
-      cursor: pointer;
+    .navbar-link {
+      margin-right: 20px;
+      font-size: 16px;
+      color: $text-color;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $crimson;
+      }
     }
 
     .dropdown {
       position: relative;
-      display: inline-block;
 
       .dropdown-button {
-        background-color: $crimson;
-        color: $background-color;
-        border: none;
+        background-color: $background-color;
+        color: $crimson;
+        border: 1px solid $crimson;
         border-radius: 4px;
         padding: 8px 16px;
         font-size: 16px;
@@ -162,7 +179,8 @@ body {
         transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: darken($crimson, 10%);
+          background-color: $crimson;
+          color: $background-color;
         }
       }
 
@@ -193,18 +211,6 @@ body {
       }
     }
 
-    .navbar-link {
-      margin-right: 20px;
-      font-size: 16px;
-      color: $text-color;
-      text-decoration: none;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: $crimson;
-      }
-    }
-
     .user-picture {
       width: 40px;
       height: 40px;
@@ -224,11 +230,49 @@ body {
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: darken($crimson, 10%);
+        background-color: $background-color;
+        color: $crimson;
+        border: 1px solid $crimson;
       }
+    }
+
+    // For mobile, hide by default
+    &.active {
+      display: flex;
+    }
+  }
+
+  .navbar-toggler {
+    display: none;
+    background-color: $crimson;
+    border: none;
+    color: $background-color;
+    font-size: 24px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($crimson, 10%);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .navbar-right {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: $navbar-height;
+      right: 0;
+      width: 100%;
+      background-color: $navbar-background;
+      padding: 20px 0;
+    }
+
+    .navbar-toggler {
+      display: block;
     }
   }
 }
+
   
 
 .dashboard-container {

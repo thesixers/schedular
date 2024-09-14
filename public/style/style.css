@@ -85,6 +85,14 @@ body {
   text-decoration: underline;
 }
 
+.welcome-message {
+  font-style: normal;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  text-align: center;
+  color: #DC143C;
+  font-size: 35px;
+}
+
 .navbar {
   background-color: #FAFAFA;
   height: 60px;
@@ -99,8 +107,9 @@ body {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
 }
-.navbar .navbar-left .navbar-brand {
+.navbar .navbar-brand {
   font-size: 24px;
   font-weight: bold;
   color: #DC143C;
@@ -109,18 +118,26 @@ body {
 .navbar .navbar-right {
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
+  gap: 10px;
 }
-.navbar .navbar-right div {
-  cursor: pointer;
+.navbar .navbar-right .navbar-link {
+  margin-right: 20px;
+  font-size: 16px;
+  color: #333333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.navbar .navbar-right .navbar-link:hover {
+  color: #DC143C;
 }
 .navbar .navbar-right .dropdown {
   position: relative;
-  display: inline-block;
 }
 .navbar .navbar-right .dropdown .dropdown-button {
-  background-color: #DC143C;
-  color: #FFFFFF;
-  border: none;
+  background-color: #FFFFFF;
+  color: #DC143C;
+  border: 1px solid #DC143C;
   border-radius: 4px;
   padding: 8px 16px;
   font-size: 16px;
@@ -128,7 +145,8 @@ body {
   transition: background-color 0.3s ease;
 }
 .navbar .navbar-right .dropdown .dropdown-button:hover {
-  background-color: #ad102f;
+  background-color: #DC143C;
+  color: #FFFFFF;
 }
 .navbar .navbar-right .dropdown .dropdown-content {
   display: none;
@@ -152,16 +170,6 @@ body {
 .navbar .navbar-right .dropdown:hover .dropdown-content {
   display: block;
 }
-.navbar .navbar-right .navbar-link {
-  margin-right: 20px;
-  font-size: 16px;
-  color: #333333;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.navbar .navbar-right .navbar-link:hover {
-  color: #DC143C;
-}
 .navbar .navbar-right .user-picture {
   width: 40px;
   height: 40px;
@@ -180,7 +188,38 @@ body {
   transition: background-color 0.3s ease;
 }
 .navbar .navbar-right .logout-button:hover {
+  background-color: #FFFFFF;
+  color: #DC143C;
+  border: 1px solid #DC143C;
+}
+.navbar .navbar-right.active {
+  display: flex;
+}
+.navbar .navbar-toggler {
+  display: none;
+  background-color: #DC143C;
+  border: none;
+  color: #FFFFFF;
+  font-size: 24px;
+  cursor: pointer;
+}
+.navbar .navbar-toggler:hover {
   background-color: #ad102f;
+}
+@media (max-width: 768px) {
+  .navbar .navbar-right {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    background-color: #FAFAFA;
+    padding: 20px 0;
+  }
+  .navbar .navbar-toggler {
+    display: block;
+  }
 }
 
 .dashboard-container {

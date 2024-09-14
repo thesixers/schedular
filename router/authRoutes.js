@@ -52,6 +52,7 @@ router.post('/login', async (req,res)=>{
 
 router.get('/logout', async (req,res)=>{
     res.cookie('SMD', '', {httpOnly: true, maxAge: 1});
+    res.redirect('/auth/login');
 })
 
 export default router;
