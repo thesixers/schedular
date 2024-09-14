@@ -28,7 +28,6 @@
   </div>
 
   <script>
-    let i = 0;
     let form = document.querySelector('form');
     let errMessage = document.querySelector('.err-massage');
 
@@ -49,16 +48,7 @@
               errMessage.innerHTML = '';
               let err = data.E.email.trim() !== '' ? data.E.email.trim() : data.E.password.trim();
               errMessage.style.color = 'Red';
-                setInterval(()=>{
-                  if(i < err.length){
-                    errMessage.innerHTML += err[i];
-                    i++
-                  }else{
-                    clearInterval();
-                    // i = 0;
-                  }
-
-                },30);
+                    errMessage.innerHTML = err;
 
             }
 
@@ -66,18 +56,11 @@
               errMessage.innerHTML = '';
               errMessage.style.color = 'green';
               let M = data.M.trim();
-              setInterval(()=>{
-                if(i < M.length){
-                  errMessage.innerHTML += M[i];
-                i++ 
-                }else{
-                  clearInterval();
-                  // i = 0;
+
+                  errMessage.innerHTML = M;
                   setTimeout(()=>{
                     location.assign('/user');
                   }, 2000)
-                }
-              },40)
             };
 
         }

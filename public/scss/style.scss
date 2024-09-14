@@ -245,10 +245,12 @@ body {
   .navbar-toggler {
     display: none;
     background-color: $crimson;
-    border: none;
+    border: 1px solid;
     color: $background-color;
     font-size: 24px;
     cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
 
     &:hover {
       background-color: darken($crimson, 10%);
