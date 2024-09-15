@@ -5,6 +5,7 @@ import fileuploader from 'express-fileupload';
 import cookieParser from 'cookie-parser';
 import authRoutes from './router/authRoutes.js';
 import otherRoutes from './router/otherRoutes.js';
+import adminRoutes from './router/adminRoutes.js';
 import env from "dotenv";
 import { loop_Session } from './middleware/enforcer.js';
 
@@ -51,6 +52,8 @@ app.get('/home', (req,res)=>{
 app.use('/auth', authRoutes);
 
 app.use('/user', otherRoutes); 
+
+app.use('/admin', adminRoutes)
 
 // 404 handler
 app.use((req, res) => {
