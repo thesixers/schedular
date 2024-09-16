@@ -3,37 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="/public/style/admin.css">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style/admin.css">
 </head>
 <body>
+  
+  <% 
+
+    let user = users.length
+    let session = sessions.length
+    let totalSessionsCompleted =  sessions.filter((s,i) => s.status === 'completed').length
+
+  %>
+
   <div class="admin-dashboard-container">
     <header class="admin-navbar">
-        <div class="admin-logo">User Management</div>
-        <div class="admin-profile">
-          <img src="path/to/user-picture.jpg" alt="Admin Profile Picture" class="admin-user-picture">
-          <ul class="nav-menu">
-              <li><a href="#" id="viewAdminProfile">Admin Profile</a></li>
-              <!-- Add other nav items here -->
-            </ul>
+      <div class="admin-logo">User Management</div>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="admin-profile">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#" id="viewAdminProfile">Profile</a></li>
+          <li><a href="#" class="create-admin">Create Admin</a></li>
           <button class="admin-logout-button">Logout</button>
-        </div>
-      </header>
+        </ul>
+        
+      </div>
+    </header>
+    
+    
 
     <div class="admin-content">
       <div class="overview-cards">
         <div class="card">
           <div class="card-title">User Activity Stats</div>
           <div class="card-content">
-            <p><strong>Active Users:</strong> 150</p>
+            <p><strong>Active Users:</strong> <%= user %></p>
             <p><strong>Recent Signups:</strong> 25</p>
           </div>
         </div>
         <div class="card">
           <div class="card-title">Study Session Data</div>
           <div class="card-content">
-            <p><strong>Sessions Created:</strong> 300</p>
-            <p><strong>Sessions Completed:</strong> 250</p>
+            <p><strong>Sessions Created:</strong><%= session %></p>
+            <p><strong>Sessions Completed:</strong><%= totalSessionsCompleted %></p>
           </div>
         </div>
       </div>
@@ -42,6 +58,23 @@
         <a href="manage-users.html" class="action-button">User Management</a>
         <a href="system-settings.html" class="action-button">System Settings</a>
       </div>
+    </div>
+  </div>
+
+
+  <!-- form-pop-up -->
+
+  <div class="form-overlay">
+    <div class="admin-form-wrapper">
+      <div class="close">x</div>
+      <div class="title">New Admin</div>
+      <div class="message">admin created !!</div>
+      <form action="" id="form">
+        <input type="text" name="name" id="name" placeholder="Name">
+        <input type="email" name="email" id="email" placeholder="email">
+        <input type="password" name="password" id="password" placeholder="password">
+        <button>Create Admin</button>
+      </form>
     </div>
   </div>
 
@@ -63,6 +96,8 @@
      const viewAdminProfile = document.getElementById('viewAdminProfile');
       const adminProfilePopup = document.getElementById('adminProfilePopup');
       const closeAdminProfile = document.getElementById('closeAdminProfile');
+      const closeAdminForm = document.querySelector('.close');
+
 
 
       // Open admin profile pop-up
@@ -74,6 +109,72 @@
       closeAdminProfile.addEventListener('click', function() {
         adminProfilePopup.style.display = 'none';
       });
+
+      document.querySelector('.create-admin').addEventListener('click', function(){
+        document.querySelector('.form-overlay').style.display = 'flex'
+      })
+
+      closeAdminForm.addEventListener('click', function(){
+        document.querySelector('.form-overlay').style.display = 'none'
+      });
+
+      const menuToggle = document.getElementById('menu-toggle');
+      const navMenu = document.getElementById('nav-menu');
+
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+
+
+  </script>
+
+  <script>
+    let form = document.getElementById('form');
+    let message = document.querySelector('.message');
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      let name = form.name.value;
+      let email = form.email.value;
+      let password = form.password.value;
+      let formData = new FormData(this);
+
+      let arrayOfNames = name.split(' ');
+
+      if(arrayOfNames.length < 2){
+        message.innerHTML = 'admin must have atleast 2 names'
+      }else{
+
+        try{
+
+            let res = await fetch('admin/create-admin', {
+              method: 'POST',
+              body: formData
+            });
+
+            let data = await res.json();
+
+            if(data.E){
+              let {email, password} = data.E;
+              let mess = email || password
+              message.innerHTML = mess
+              message.style.color = 'red';
+            }
+
+            if(data.M) message.innerHTML = data.M;
+
+            }
+        catch(err){
+            console.log(err);
+        }
+
+
+      }
+
+
+
+    })
   </script>
 </body>
 </html>

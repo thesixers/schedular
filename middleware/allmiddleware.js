@@ -51,3 +51,25 @@ export const checkToken = (req,res,next) =>{
     }
    
 }
+
+export const checkAdmin = (req,res,next) =>{
+    let token = req.cookies.SMDA;
+
+    if(!token) res.redirect('/auth/login');
+
+    if(token){
+        jwt.verify(token, JWT_SECRET, async (err,decodedtoken)=>{
+            if(err) res.redirect('/auth/login');
+
+            const id = decodedtoken.id;
+            var user = await User.findById(id);
+            var s = await session.find({userId: id});
+            var n = await notification.find({userId: id});
+            var e = await Enforcement.findOne({userId: id});
+
+            res.locals.details = {user,s,n,e}
+            next(); 
+        }); 
+    }
+   
+}

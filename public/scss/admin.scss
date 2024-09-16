@@ -25,7 +25,11 @@ $button-hover: darken($button-background, 10%);
 $table-header-background: #FAFAFA;   // Light background for table headers
 $table-border: #DDDDDD;              // Light border for table
 
-
+@mixin centeringBox(){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 // Admin Dashboard Styles
 .admin-dashboard-container {
@@ -33,42 +37,123 @@ $table-border: #DDDDDD;              // Light border for table
   padding: 20px;
 
   .admin-navbar {
-    background-color: $admin-nav-background;
+    background-color: $admin-button-background;
     color: $admin-nav-color;
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    
     .admin-logo {
       font-size: 24px;
       font-weight: bold;
     }
 
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      span {
+        display: block;
+        height: 4px;
+        background-color: $admin-nav-color;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+    }
+
     .admin-profile {
       display: flex;
       align-items: center;
+      gap: 10px;
 
-      .admin-user-picture {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid $admin-nav-color;
-        margin-right: 10px;
+      .nav-menu {
+        display: flex;
+
+        .admin-logout-button {
+          background-color: #fff;
+          color: $admin-button-background;
+          border: 1px solid $admin-button-background;
+          border-radius: 4px;
+          padding: 8px 16px;
+          cursor: pointer;
+  
+          &:hover {
+            background-color: rgba(255, 119, 146, 0.846);
+            color: #fff;
+          }
+        }
+
+        li {
+          list-style: none;
+
+          a {
+            color: $admin-background-color;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              text-decoration: dashed;
+            }
+          }
+        }
       }
 
-      .admin-logout-button {
-        background-color: $admin-button-background;
-        color: $admin-nav-color;
-        border: none;
-        border-radius: 4px;
-        padding: 8px 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+      
+    }
+  }
 
-        &:hover {
-          background-color: $admin-button-hover;
+  // Responsive Styles
+  @media (max-width: 768px) {
+    .admin-navbar {
+      .admin-logo {
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .admin-profile {
+        .nav-menu {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          right: 10px;
+          background-color: $admin-button-background;
+          width: 150px;
+          border-radius: 5px;
+          z-index: 100;
+
+          li {
+            margin: auto;
+          }
         }
+      }
+
+      .menu-toggle {
+        display: flex;
+        margin-left: auto;
+      }
+
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .menu-toggle.active + .admin-profile .nav-menu {
+        display: flex;
       }
     }
   }
@@ -124,7 +209,90 @@ $table-border: #DDDDDD;              // Light border for table
       }
     }
   }
+
+
 }
+
+// admin-creater
+.form-overlay{
+  background-color: #b5b3b363;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  @include centeringBox();
+  display: none;
+
+  .admin-form-wrapper{
+    width: 300px;
+    background-color: #fff;
+    position: relative;
+    padding: 20px 20px;
+    width: 500px;
+    height: 250px;
+    border-radius: 5px;
+
+    .close{
+      position: absolute;
+      top: 10;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    .title{
+      font-size: 18px;
+      font-weight: 600;
+      width: 100%;
+      text-align: center;
+    }
+
+    .message{
+      text-align: center;
+      font-size: 14px;
+      color: green;
+    }
+
+    #form{
+      // display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      height: 100%;
+      @include centeringBox();
+      
+      // background-color: #CCCCCC;
+
+      input{
+        width: 300px;
+        padding: 10px;
+
+      }
+
+      button{
+        width: 200px;
+        background-color: crimson;
+        border: none;
+        margin: auto;
+        padding: 10px;
+        border-radius: 5px;
+        color: #fff;
+        margin-top: -5px;
+        transition-duration: 0.3s;
+        transition-timing-function: ease-in-out;
+        cursor: pointer;
+
+        &:hover{
+          border: 1px solid crimson;
+          background-color: #fff;
+          color: crimson;
+        }
+      }
+    }
+  }
+}
+
 
 
 // User Management Styles

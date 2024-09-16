@@ -198,10 +198,12 @@ body {
 .navbar .navbar-toggler {
   display: none;
   background-color: #DC143C;
-  border: none;
+  border: 1px solid;
   color: #FFFFFF;
   font-size: 24px;
   cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
 }
 .navbar .navbar-toggler:hover {
   background-color: #ad102f;

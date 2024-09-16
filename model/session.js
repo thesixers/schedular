@@ -13,4 +13,7 @@ const studySessionSchema = new Schema({
   const session = model('session', studySessionSchema); 
 
   export default session;
+
+  let num = [1,1,3,4,5];
+
   

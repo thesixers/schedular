@@ -3,7 +3,7 @@
   padding: 20px;
 }
 .admin-dashboard-container .admin-navbar {
-  background-color: #333333;
+  background-color: #DC143C;
   color: #FFFFFF;
   padding: 10px;
   display: flex;
@@ -14,28 +14,91 @@
   font-size: 24px;
   font-weight: bold;
 }
+.admin-dashboard-container .admin-navbar .menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
+.admin-dashboard-container .admin-navbar .menu-toggle span {
+  display: block;
+  height: 4px;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
 .admin-dashboard-container .admin-navbar .admin-profile {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
-.admin-dashboard-container .admin-navbar .admin-profile .admin-user-picture {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid #FFFFFF;
-  margin-right: 10px;
+.admin-dashboard-container .admin-navbar .admin-profile .nav-menu {
+  display: flex;
 }
-.admin-dashboard-container .admin-navbar .admin-profile .admin-logout-button {
-  background-color: #DC143C;
-  color: #FFFFFF;
-  border: none;
+.admin-dashboard-container .admin-navbar .admin-profile .nav-menu .admin-logout-button {
+  background-color: #fff;
+  color: #DC143C;
+  border: 1px solid #DC143C;
   border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
-.admin-dashboard-container .admin-navbar .admin-profile .admin-logout-button:hover {
-  background-color: #ad102f;
+.admin-dashboard-container .admin-navbar .admin-profile .nav-menu .admin-logout-button:hover {
+  background-color: rgba(255, 119, 146, 0.846);
+  color: #fff;
+}
+.admin-dashboard-container .admin-navbar .admin-profile .nav-menu li {
+  list-style: none;
+}
+.admin-dashboard-container .admin-navbar .admin-profile .nav-menu li a {
+  color: #F4F4F4;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.admin-dashboard-container .admin-navbar .admin-profile .nav-menu li a:hover {
+  text-decoration: dashed;
+}
+@media (max-width: 768px) {
+  .admin-dashboard-container .admin-navbar .admin-logo {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .admin-dashboard-container .admin-navbar .admin-profile .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background-color: #DC143C;
+    width: 150px;
+    border-radius: 5px;
+    z-index: 100;
+  }
+  .admin-dashboard-container .admin-navbar .admin-profile .nav-menu li {
+    margin: auto;
+  }
+  .admin-dashboard-container .admin-navbar .menu-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+  .admin-dashboard-container .admin-navbar .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .admin-dashboard-container .admin-navbar .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .admin-dashboard-container .admin-navbar .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  .admin-dashboard-container .admin-navbar .menu-toggle.active + .admin-profile .nav-menu {
+    display: flex;
+  }
 }
 .admin-dashboard-container .admin-content {
   margin-top: 20px;
@@ -80,6 +143,77 @@
 }
 .admin-dashboard-container .admin-content .quick-links .action-button:hover {
   background-color: #ad102f;
+}
+
+.form-overlay {
+  background-color: rgba(181, 179, 179, 0.3882352941);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+.form-overlay .admin-form-wrapper {
+  width: 300px;
+  background-color: #fff;
+  position: relative;
+  padding: 20px 20px;
+  width: 500px;
+  height: 250px;
+  border-radius: 5px;
+}
+.form-overlay .admin-form-wrapper .close {
+  position: absolute;
+  top: 10;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.form-overlay .admin-form-wrapper .title {
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+}
+.form-overlay .admin-form-wrapper .message {
+  text-align: center;
+  font-size: 14px;
+  color: green;
+}
+.form-overlay .admin-form-wrapper #form {
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-overlay .admin-form-wrapper #form input {
+  width: 300px;
+  padding: 10px;
+}
+.form-overlay .admin-form-wrapper #form button {
+  width: 200px;
+  background-color: crimson;
+  border: none;
+  margin: auto;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  margin-top: -5px;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
+}
+.form-overlay .admin-form-wrapper #form button:hover {
+  border: 1px solid crimson;
+  background-color: #fff;
+  color: crimson;
 }
 
 .user-management-container {

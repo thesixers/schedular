@@ -9,7 +9,7 @@ const adminSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
   });
 
-  userSchema.pre('save', async function(next){
+  adminSchema.pre('save', async function(next){
     if(this.isModified('password') || this.isNew) {
         const salt = await bcrypt.genSalt();
 
@@ -18,7 +18,7 @@ const adminSchema = new Schema({
     next()
   });
 
-  userSchema.statics.login = async function({email, password}){
+  adminSchema.statics.login = async function({email, password}){
     let user = await this.findOne({email});
 
     console.log(user);
