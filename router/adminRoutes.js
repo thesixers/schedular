@@ -2,7 +2,7 @@ import { Router } from "express";
 import User from "../model/user.js";
 import session from "../model/session.js";
 import Admin from "../model/admin.js";
-import { createToken, handleError } from "../middleware/allmiddleware.js";
+import { checkAdmin, createToken, handleError } from "../middleware/allmiddleware.js";
 import env from 'dotenv';
 env.config();
 
@@ -10,11 +10,15 @@ const {JWT_SECRET} = process.env;
 
 const router = Router();
 
-router.get('/', async (req,res) =>{
-   let users = await User.find();
-   let sessions = await session.find();
-    res.render('admin/Dashboard', {title: 'Admin Dashboard', users, sessions});
+// router.get('*', checkAdmin);
+
+router.get('/', checkAdmin, async (req,res) =>{
+    res.render('admin/Dashboard', {title: 'Admin Dashboard'});
 });
+
+router.get('/manage-users', checkAdmin, (req,res) =>{
+    res.render('admin/User', {title: 'Manage Users'})
+})
 
 router.get('/login', async (req, res)=>{
     res.render('admin/login', {title: 'Admin Login'})
@@ -28,12 +32,11 @@ router.post('/login', async (req,res)=>{
 
     let token = createToken(user._id, JWT_SECRET);
     res.cookie('SMDA', token, {httpOnly: true, maxAge: maxAge * 1000})
-
+    res.status(200).json({M: 'Wellcome Boss 👍 !!!'})
    }
    catch(err){
     const error = handleError(err);
     res.status(400).json({E: error});
-    console.log(err);
    }
 
 })

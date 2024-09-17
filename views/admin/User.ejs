@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Management</title>
-  <link rel="stylesheet" href="/public/style/admin.css">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style/admin.css">
 </head>
 <body>
-  <div class="user-management-container">
+  <div class="user-management-container admin-dashboard-container">
     <header class="admin-navbar">
       <div class="admin-logo">User Management</div>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <div class="admin-profile">
-        <img src="path/to/user-picture.jpg" alt="Admin Profile Picture" class="admin-user-picture">
-        <ul class="nav-menu">
-            <li><a href="#" id="viewAdminProfile">Admin Profile</a></li>
-            <!-- Add other nav items here -->
-          </ul>
-        <button class="admin-logout-button">Logout</button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#" id="viewAdminProfile">Profile</a></li>
+          <li><a href="#" class="create-admin">Create Admin</a></li>
+          <button class="admin-logout-button">Logout</button>
+        </ul>
+        
       </div>
     </header>
 

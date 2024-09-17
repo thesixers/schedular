@@ -9,6 +9,7 @@
 <body>
   
   <% 
+    const {admin,sessions,users} = details;
 
     let user = users.length
     let session = sessions.length
@@ -17,22 +18,7 @@
   %>
 
   <div class="admin-dashboard-container">
-    <header class="admin-navbar">
-      <div class="admin-logo">User Management</div>
-      <div class="menu-toggle" id="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="admin-profile">
-        <ul class="nav-menu" id="nav-menu">
-          <li><a href="#" id="viewAdminProfile">Profile</a></li>
-          <li><a href="#" class="create-admin">Create Admin</a></li>
-          <button class="admin-logout-button">Logout</button>
-        </ul>
-        
-      </div>
-    </header>
+    <%- include('./partials/nav.ejs') %>
     
     
 
@@ -55,15 +41,13 @@
       </div>
 
       <div class="quick-links">
-        <a href="manage-users.html" class="action-button">User Management</a>
+        <a href="/admin/manage-users" class="action-button">User Management</a>
         <a href="system-settings.html" class="action-button">System Settings</a>
       </div>
     </div>
   </div>
 
-
   <!-- form-pop-up -->
-
   <div class="form-overlay">
     <div class="admin-form-wrapper">
       <div class="close">x</div>
@@ -84,13 +68,12 @@
           <span class="close-btn" id="closeAdminProfile">&times;</span>
           <h2>Admin Profile</h2>
           <div class="admin-profile-details">
-            <p><strong>Name:</strong> <span id="adminName">Admin Name</span></p>
-            <p><strong>Email:</strong> <span id="adminEmail">admin@example.com</span></p>
+            <p><strong>Name:</strong> <span id="adminName"><%= admin.name %></span></p>
+            <p><strong>Email:</strong> <span id="adminEmail"><%= admin.email %></span></p>
             <p><strong>Status:</strong> <span id="adminStatus">Administrator</span></p>
           </div>
         </div>
       </div>
-    </div>
 
   <script>
      const viewAdminProfile = document.getElementById('viewAdminProfile');

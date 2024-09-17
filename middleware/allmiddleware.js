@@ -4,6 +4,7 @@ import notification from "../model/notification.js";
 import User from "../model/user.js";
 import session from "../model/session.js";
 import Enforcement from "../model/enforcement.js";
+import Admin from "../model/admin.js";
 
 env.config();
 
@@ -55,19 +56,18 @@ export const checkToken = (req,res,next) =>{
 export const checkAdmin = (req,res,next) =>{
     let token = req.cookies.SMDA;
 
-    if(!token) res.redirect('/auth/login');
+    if(!token) res.redirect('/admin/login');
 
     if(token){
         jwt.verify(token, JWT_SECRET, async (err,decodedtoken)=>{
-            if(err) res.redirect('/auth/login');
+            if(err) res.redirect('/admin/login');
 
             const id = decodedtoken.id;
-            var user = await User.findById(id);
-            var s = await session.find({userId: id});
-            var n = await notification.find({userId: id});
-            var e = await Enforcement.findOne({userId: id});
-
-            res.locals.details = {user,s,n,e}
+            var admin = await Admin.findById(id);
+            let users = await User.find();
+            let sessions = await session.find();
+            console.log(admin);
+            res.locals.details = {admin,sessions,users}
             next(); 
         }); 
     }

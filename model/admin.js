@@ -21,9 +21,6 @@ const adminSchema = new Schema({
   adminSchema.statics.login = async function({email, password}){
     let user = await this.findOne({email});
 
-    console.log(user);
-    console.log({email, password});
-
     if(!user) throw Error('invalid user');
 
     if(password === '') throw Error('password field is empty');
