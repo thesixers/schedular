@@ -52,7 +52,7 @@
     <div class="admin-form-wrapper">
       <div class="close">x</div>
       <div class="title">New Admin</div>
-      <div class="message">admin created !!</div>
+      <div class="message"></div>
       <form action="" id="form">
         <input type="text" name="name" id="name" placeholder="Name">
         <input type="email" name="email" id="email" placeholder="email">
@@ -62,55 +62,20 @@
     </div>
   </div>
 
-      <!-- Admin Profile Pop-up -->
-      <div class="popup-overlay" id="adminProfilePopup">
-        <div class="popup-content">
-          <span class="close-btn" id="closeAdminProfile">&times;</span>
-          <h2>Admin Profile</h2>
-          <div class="admin-profile-details">
-            <p><strong>Name:</strong> <span id="adminName"><%= admin.name %></span></p>
-            <p><strong>Email:</strong> <span id="adminEmail"><%= admin.email %></span></p>
-            <p><strong>Status:</strong> <span id="adminStatus">Administrator</span></p>
-          </div>
-        </div>
+  <!-- Admin Profile Pop-up -->
+  <div class="popup-overlay" id="adminProfilePopup">
+    <div class="popup-content">
+      <span class="close-btn" id="closeAdminProfile">&times;</span>
+      <h2>Admin Profile</h2>
+      <div class="admin-profile-details">
+        <p><strong>Name:</strong> <span id="adminName"><%= admin.name %></span></p>
+        <p><strong>Email:</strong> <span id="adminEmail"><%= admin.email %></span></p>
+        <p><strong>Status:</strong> <span id="adminStatus">Administrator</span></p>
       </div>
+    </div>
+  </div>
 
-  <script>
-     const viewAdminProfile = document.getElementById('viewAdminProfile');
-      const adminProfilePopup = document.getElementById('adminProfilePopup');
-      const closeAdminProfile = document.getElementById('closeAdminProfile');
-      const closeAdminForm = document.querySelector('.close');
-
-
-
-      // Open admin profile pop-up
-      viewAdminProfile.addEventListener('click', function() {
-        adminProfilePopup.style.display = 'flex';
-      });
-
-      // Close admin profile pop-up
-      closeAdminProfile.addEventListener('click', function() {
-        adminProfilePopup.style.display = 'none';
-      });
-
-      document.querySelector('.create-admin').addEventListener('click', function(){
-        document.querySelector('.form-overlay').style.display = 'flex'
-      })
-
-      closeAdminForm.addEventListener('click', function(){
-        document.querySelector('.form-overlay').style.display = 'none'
-      });
-
-      const menuToggle = document.getElementById('menu-toggle');
-      const navMenu = document.getElementById('nav-menu');
-
-      menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-      });
-
-
-  </script>
+  <script src="/script/pop.js"></script>
 
   <script>
     let form = document.getElementById('form');

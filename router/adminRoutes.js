@@ -24,6 +24,25 @@ router.get('/login', async (req, res)=>{
     res.render('admin/login', {title: 'Admin Login'})
 });
 
+router.post('/searchUser', async (req, res) => {
+    const searchQuery = req.query.query; 
+    console.log(searchQuery);
+
+    try {
+        let users = await User.find(); 
+        let search = users.filter((user) =>
+            user.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            user.email.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        console.log(search);
+        res.json({search});
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({E: 'Server error'});
+    }
+}); 
+
+
 router.post('/login', async (req,res)=>{
     let {email, password} = req.body;
     let maxAge = 1 * 24 *60 *60;
@@ -57,6 +76,11 @@ router.post('/create-admin', async (req,res)=>{
    }
 
 });
+
+router.get('/logout', (req,res)=>{
+    res.cookie('SMDA', '', {httpOnly: true, maxAge: 1});
+    res.redirect('/admin/login');
+})
 
 
 

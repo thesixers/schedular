@@ -66,7 +66,7 @@ export const checkAdmin = (req,res,next) =>{
             var admin = await Admin.findById(id);
             let users = await User.find();
             let sessions = await session.find();
-            console.log(admin);
+
             res.locals.details = {admin,sessions,users}
             next(); 
         }); 

@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/style/admin.css">
 </head>
+
 <body>
+
+
+  <% 
+    const {admin,sessions,users} = details;
+
+    let user = users.length
+    let session = sessions.length
+    let totalSessionsCompleted =  sessions.filter((s,i) => s.status === 'completed').length
+
+  %>
+
   <div class="user-management-container admin-dashboard-container">
     <header class="admin-navbar">
       <div class="admin-logo">User Management</div>
@@ -21,14 +34,14 @@
           <li><a href="#" class="create-admin">Create Admin</a></li>
           <button class="admin-logout-button">Logout</button>
         </ul>
-        
+
       </div>
     </header>
 
     <div class="user-management-content">
       <div class="search-filter">
-        <input type="text" placeholder="Search by name or email" class="search-input">
-        <button class="filter-button">Filter</button>
+        <input type="text" placeholder="Search by name or email" onkeydown="search()" class="search-input">
+        <button class="filter-button" onclick="search()">Filter</button>
       </div>
 
       <div class="user-list">
@@ -41,18 +54,22 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="users-cont">
             <!-- Example User Row -->
+            <% users.forEach(u => { %>
+
             <tr>
-              <td>Jane Doe</td>
-              <td>jane.doe@example.com</td>
-              <td>Active</td>
+              <td><%= u.name %></td>
+              <td><%= u.email %></td>
+              <td><%= u.status %></td>
               <td>
                 <button class="view-activity-button">View Activity</button>
                 <button class="edit-button" onclick="showUserDetailsPopup({name: 'Jane Doe', email: 'jane.doe@example.com', status: 'Active'})">Edit</button>
                 <button class="remove-button">Remove</button>
               </td>
             </tr>
+
+            <% }); %>
             <!-- Add more rows as needed -->
           </tbody>
         </table>
@@ -117,92 +134,114 @@
     </div>
   </div>
 
+  <!-- form-pop-up -->
+  <div class="form-overlay">
+    <div class="admin-form-wrapper">
+      <div class="close">x</div>
+      <div class="title">New Admin</div>
+      <div class="message"></div>
+      <form action="" id="form">
+        <input type="text" name="name" id="name" placeholder="Name">
+        <input type="email" name="email" id="email" placeholder="email">
+        <input type="password" name="password" id="password" placeholder="password">
+        <button>Create Admin</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Profile Pop-up -->
+  <div class="popup-overlay" id="adminProfilePopup">
+    <div class="popup-content">
+      <span class="close-btn" id="closeAdminProfile">&times;</span>
+      <h2>Admin Profile</h2>
+      <div class="admin-profile-details">
+        <p><strong>Name:</strong> <span id="adminName"><%= admin.name %></span></p>
+        <p><strong>Email:</strong> <span id="adminEmail"><%= admin.email %></span></p>
+        <p><strong>Status:</strong> <span id="adminStatus">Administrator</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/script/userMS.js"></script>
   <script>
-    // script.js
+    let usersCont = document.querySelector('.users-cont');
+    let searchInput = document.querySelector('.search-input')
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const viewActivityButtons = document.querySelectorAll('.view-activity-button');
-      const popupOverlay = document.getElementById('popupOverlay');
-      const closeBtn = document.getElementById('closeBtn');
-      const userActivityPopup = document.getElementById('userActivityPopup');
-      const closePopup = document.getElementById('closePopup');
-      const openNotificationForm = document.getElementById('openNotificationForm');
-      const notificationFormPopup = document.getElementById('notificationFormPopup');
-      const closeNotificationForm = document.getElementById('closeNotificationForm');
-      const viewAdminProfile = document.getElementById('viewAdminProfile');
-      const adminProfilePopup = document.getElementById('adminProfilePopup');
-      const closeAdminProfile = document.getElementById('closeAdminProfile');
 
-      // Show pop-up when "View Activity" button is clicked
-      viewActivityButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          popupOverlay.style.display = 'flex';
+    const search = async () =>{
+
+      try {
+
+        let res = await fetch(`/admin/searchUser?query=${searchInput.value}`, {
+          method: 'POST'
         });
-      });
 
-      // Hide pop-up when close button is clicked
-      closeBtn.addEventListener('click', function() {
-        popupOverlay.style.display = 'none';
-      });
+        let data = await res.json();
+        let {
+          search
+        } = data;
+        usersCont.innerHTML = '';
+        if (search.length > 0) {
+          search.forEach(u => {
+            usersCont.innerHTML += `<tr>
+                                <td>${u.name}</td>
+                                <td>${u.email}</td>
+                                <td>${u.status}</td>
+                                <td>
+                                  <button class="view-activity-button">View Activity</button>
+                                  <button class="edit-button" onclick="showUserDetailsPopup({name: '${u.name}', email: '${u.email}', status: '${u.status}'})">Edit</button>
+                                  <button class="remove-button">Remove</button>
+                                </td>
+                              </tr>`
+          })
+        } else {
+          usersCont.innerHTML = `
+                      <tr>
+                                <td>No user found with this details</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                  
+                                </td>
+                              </tr>
+                      `
+        };
 
-      // Hide pop-up when clicking outside the content area
-      popupOverlay.addEventListener('click', function(event) {
-        if (event.target === popupOverlay) {
-          popupOverlay.style.display = 'none';
+
+        if(data.E){
+            usersCont.innerHTML = `
+                      <tr>
+                                <td>${data.E}</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                  
+                                </td>
+                              </tr>
+                      `
         }
-      });
 
-      // Show the user details pop-up
-      window.showUserDetailsPopup = function(user) {
-        // Set user details
-        document.getElementById('userName').textContent = user.name;
-        document.getElementById('userEmail').textContent = user.email;
-        document.getElementById('userStatus').textContent = user.status;
 
-        // Show the user details pop-up
-        userActivityPopup.style.display = 'flex';
-      }
+        } catch(err){
+        usersCont.innerHTML = `
+                      <tr>
+                                <td>${err.message}</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                  
+                                </td>
+                              </tr>
+                      `
+        }
+      
+    }
 
-      // Close the user details pop-up
-      closePopup.addEventListener('click', function() {
-        userActivityPopup.style.display = 'none';
-      });
-
-      // Open notification form pop-up
-      openNotificationForm.addEventListener('click', function() {
-        notificationFormPopup.style.display = 'flex';
-      });
-
-      // Close notification form pop-up
-      closeNotificationForm.addEventListener('click', function() {
-        notificationFormPopup.style.display = 'none';
-      });
-
-      // Handle sending a notification
-      document.getElementById('notificationForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        // Logic to send a notification
-        alert('Notification sent: ' + document.getElementById('notificationMessage').value);
-        // Close the notification form pop-up
-        notificationFormPopup.style.display = 'none';
-      });
-
-      // Handle making a user an admin
-      document.getElementById('makeAdmin').addEventListener('click', function() {
-        // Logic to make the user an admin
-        alert(document.getElementById('userName').textContent + ' has been promoted to admin.');
-      });
-
-      // Open admin profile pop-up
-      viewAdminProfile.addEventListener('click', function() {
-        adminProfilePopup.style.display = 'flex';
-      });
-
-      // Close admin profile pop-up
-      closeAdminProfile.addEventListener('click', function() {
-        adminProfilePopup.style.display = 'none';
-      });
-    });
+    Notification.requestPermission()
+    .then(p =>{
+      if(p ==="granted") new Notification('u have a new notification');
+    })
   </script>
 </body>
+
 </html>
