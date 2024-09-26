@@ -40,7 +40,7 @@ router.post('/searchUser', async (req, res) => {
         console.error(err);
         res.status(500).json({E: 'Server error'});
     }
-}); 
+});   
 
 
 router.post('/login', async (req,res)=>{
